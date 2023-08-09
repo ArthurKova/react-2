@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Section from 'Component/Section/';
 import Statistics from 'Component/Statistics/';
-import FeedbackOptions from './Component/FeedbackOptions';
+import FeedbackOptions from './Component/FeedbackOptions/';
+import Notification from 'Component/Notification/';
 
 class App extends Component {
   state = {
@@ -33,16 +34,16 @@ class App extends Component {
     const { good, neutral, bad } = this.state;
     return (
       <>
-        <h1>Please leave a feedback</h1>
         <Section title="feedback">
+          <h1>Please leave a feedback</h1>
           <FeedbackOptions
             options={['Good', 'Neutral', 'Bad']}
             onLeaveFeedback={this.onLeaveFeedback}
           />
-        </Section>
-        <Section title="statistics">
           <h2>Statistics</h2>
-          {this.countTotalFeedback() === 0 ? null : (
+          {this.countTotalFeedback() === 0 ? (
+            <Notification />
+          ) : (
             <Statistics
               good={good}
               neutral={neutral}
@@ -52,7 +53,6 @@ class App extends Component {
             />
           )}
         </Section>
-        {this.countTotalFeedback() === 0 ? <p>No feedback given yet</p> : null}
       </>
     );
   }
